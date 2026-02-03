@@ -18,6 +18,22 @@ static void printScores(const int(&scores)[10], int size) {
 	}
 }
 
+// Function to calculate the sum of all employee performance scores
+// Here I used a constant pointer to the scores array to prevent modification of the original data
+// This function takes two parameters:
+// 1. A constant pointer to an array of integers (the scores)
+// 2. An integer representing the size of the array
+static int calculateSum(const int* scores, int size) {
+	// Here I initialize a variable to hold the sum of the scores
+	int sum = 0;
+	// I use a traditional for loop to loop through the array and calculate the sum
+	for (int i = 0; i < size; ++i) {
+		// I add each score to the sum variable
+		sum += scores[i]; // This is equivalent to sum = sum + *(scores + i); Because of how arrays and pointers work I can use either notation
+	}
+	return sum;
+}
+
 int main() {
 
 	// Variable that holds the size of the array 
@@ -31,6 +47,9 @@ int main() {
 
 	// Function to print the original employee scores 
 	printScores(scores, SIZE);
+
+	// Calling the calculateSum function to get the sum of all the scores 
+	int totalScore = calculateSum(scores, SIZE);
 
 
 
