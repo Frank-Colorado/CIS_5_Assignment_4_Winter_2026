@@ -28,6 +28,7 @@ static int calculateSum(const int* scores, int size) {
 
 	// Here I initialize a variable to hold the sum of the scores
 	int sum = 0;
+
 	// I use a traditional for loop to loop through the array and calculate the sum
 	for (int i = 0; i < size; ++i) {
 		// I add each score to the sum variable
