@@ -17,7 +17,6 @@ static void printScores(const int(&scores)[10], int size) {
 	for (int score : scores) {
 		cout << score << " ";
 	}
-
 }
 
 // Function to calculate the sum of all employee performance scores
@@ -34,8 +33,9 @@ static int calculateSum(const int* scores, int size) {
 		// I add each score to the sum variable
 		sum += scores[i]; // This is equivalent to sum = sum + *(scores + i); Because of how arrays and pointers work I can use either notation
 	}
-	return sum;
 
+	// Finally I return the total sum of the scores
+	return sum;
 }
 
 // Function to calculate the average score of all employee performance scores
@@ -47,7 +47,6 @@ static double calculateAverage(int sum, int size) {
 
 	// I calculate the average by dividing the total score by the size of the array and return the result
 	return static_cast<double>(sum) / size; // I cast totalScore to double to ensure we get a precise average
-
 }
 
 // Function to add a bonus to each employee performance score
@@ -63,11 +62,59 @@ static void addBonus(int* scores, int size, int bonus) {
 
 	// I use a traditional for loop to iterate through the array and add the bonus to each score
 	for (int i = 0; i < size; ++i) {
-		scores[i] += bonus; // This is equivalent to *(scores + i) = *(scores + i) + bonus; Because of how arrays and pointers work I can use either notation
+		scores[i] += bonus; // This is equivalent to *(scores + i) = *(scores + i) + bonus; 
 	}
-
 }
 
+// Function to find the minimum employee performance score
+// Here I use a constant pointer again because I don't want to modify the original scores array
+// This function takes two parameters:
+// 1. A constant pointer to an array of integers (the scores)
+// 2. An integer representing the size of the array
+static int findMinimum(const int* scores, int size) {
+
+	// I initialize a variable to hold the minimum score and set it to the first element of the array
+	int minScore = scores[0]; // This is equivalent to int minScore = *(scores + 0);
+
+	// I use a traditional for loop to iterate through the array and find the minimum score
+	// I start at the first index since I already used the zeroth index to initialize minScore
+	for (int i = 1; i < size; ++i) {
+		// I use a conditional to check if the current score is less than the current minimum score
+		if (scores[i] < minScore) {
+			// If it is, I update minScore to the current score
+			minScore = scores[i];
+		}
+	}
+
+	// Finally I return the minimum score found
+	return minScore;
+}
+
+// Function to count the number of high performing employees (defined as having a score greater than or equal to 80)
+// Here I use a constant pointer again because I don't want to modify the original scores array
+// This function takes two parameters:
+// 1. A constant pointer to an array of integers (the scores)
+// 2. An integer representing the size of the array
+static int countHighPerformers(const int* scores, int size) {
+
+	// I initialize a variable to hold the count of high performers
+	int count = 0;
+
+	// I use a traditional for loop to iterate through the array and count the number of high performers
+	for (int i = 0; i < size; ++i) {
+		// I use a conditional to check if the current score is greater than or equal to 80
+		if (scores[i] >= 80) {
+			// If it is, I increment the count variable
+			++count;
+		}
+	}
+
+	// Finally I return the count of high performers
+	return count;
+}
+
+// ------------------------------------------------------------------------------------------------------------------------------------
+// Main function
 int main() {
 
 	// Variable that holds the size of the array 
@@ -101,10 +148,19 @@ int main() {
 	// Calling the addBonus function to add the bonus to each employee score
 	addBonus(scores, SIZE, bonus);
 
+	// Calling printScores function to print out the new scores after adding the bonus
+	cout << "\nEmployee Performance Scores after adding bonus of " << bonus << ": ";
+	printScores(scores, SIZE);
 
+	// Function to get the minimum score after adding the bonus
+	int minScore = findMinimum(scores, SIZE);
 
+	// Function to show the number of high performing employees (defined as having a score greater than or above 80)
+	int highPerformers = countHighPerformers(scores, SIZE);
 
-
+	// Then I print out the minimum score and number of high performers
+	cout << "\n\nMinimum Employee Performance Score after bonus: " << minScore;
+	cout << "\nNumber of High Performing Employees (Score >= 80): " << highPerformers << "\n";
 
 
 	return 0;
