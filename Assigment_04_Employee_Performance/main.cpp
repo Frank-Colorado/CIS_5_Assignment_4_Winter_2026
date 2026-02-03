@@ -139,7 +139,7 @@ int main() {
 	int totalScore = calculateSum(scores, SIZE);
 
 	// Calling the calculateAverage function to get the average score
-	int averageScore = calculateAverage(totalScore, SIZE);
+	double averageScore = calculateAverage(totalScore, SIZE);
 
 	// Printing the total and average scores with formatting
 	cout << "\n\nTotal Employee Performance Score: " << totalScore;
