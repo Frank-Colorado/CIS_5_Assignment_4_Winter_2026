@@ -34,6 +34,16 @@ static int calculateSum(const int* scores, int size) {
 	return sum;
 }
 
+// Function to calculate the average score of all employee performance scores
+// Here I passed both parameters by value since they are just small integers and there is no need to modify the original data
+// This function takes two parameters:
+// 1. An integer representing the total sum of the scores
+// 2. An integer representing the size of the array
+double calculateAverage(int sum, int size) {
+	// I calculate the average by dividing the total score by the size of the array and return the result
+	return static_cast<double>(sum) / size; // I cast totalScore to double to ensure we get a precise average
+}
+
 int main() {
 
 	// Variable that holds the size of the array 
@@ -45,11 +55,19 @@ int main() {
 	// Variable to hold the bonus amount
 	int bonus = 10;
 
+
+	// Just like in the lab exercise I pass "scores" into almost all my functions. I learned that this is because in C++ arrays decay to pointers when passed into functions.
+	// So "scores" is the same as "&scores[0]" or a reference to the first element of the array.
+	// Because scores is "technically" already a reference I don't need to use the "&" operator when passing it into functions that take pointer parameters.
+
 	// Function to print the original employee scores 
 	printScores(scores, SIZE);
 
 	// Calling the calculateSum function to get the sum of all the scores 
 	int totalScore = calculateSum(scores, SIZE);
+
+	// Calling the calculateAverage function to get the average score
+	int averageScore = calculateAverage(totalScore, SIZE);
 
 
 
