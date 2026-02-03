@@ -12,10 +12,12 @@ using std::cout;
 // 1. A constant pointer to an array of integers (the scores)
 // 2. An integer representing the size of the array
 static void printScores(const int(&scores)[10], int size) {
+
 	// I use a ranged base for loop to iterate through the array since I am just reading through the values
 	for (int score : scores) {
 		cout << score << " ";
 	}
+
 }
 
 // Function to calculate the sum of all employee performance scores
@@ -24,6 +26,7 @@ static void printScores(const int(&scores)[10], int size) {
 // 1. A constant pointer to an array of integers (the scores)
 // 2. An integer representing the size of the array
 static int calculateSum(const int* scores, int size) {
+
 	// Here I initialize a variable to hold the sum of the scores
 	int sum = 0;
 	// I use a traditional for loop to loop through the array and calculate the sum
@@ -32,6 +35,7 @@ static int calculateSum(const int* scores, int size) {
 		sum += scores[i]; // This is equivalent to sum = sum + *(scores + i); Because of how arrays and pointers work I can use either notation
 	}
 	return sum;
+
 }
 
 // Function to calculate the average score of all employee performance scores
@@ -39,9 +43,29 @@ static int calculateSum(const int* scores, int size) {
 // This function takes two parameters:
 // 1. An integer representing the total sum of the scores
 // 2. An integer representing the size of the array
-double calculateAverage(int sum, int size) {
+static double calculateAverage(int sum, int size) {
+
 	// I calculate the average by dividing the total score by the size of the array and return the result
 	return static_cast<double>(sum) / size; // I cast totalScore to double to ensure we get a precise average
+
+}
+
+// Function to add a bonus to each employee performance score
+// Here I don't use a constant pointer since I want to be able to modify the original scores array
+// This function takes three parameters:
+// 1. A pointer to an array of integers (the scores)
+// 2. An integer representing the size of the array
+// 3. An integer representing the bonus amount to be added
+static void addBonus(int* scores, int size, int bonus) {
+	// First I check to make sure that the scores pointer is not null
+	if (scores == nullptr) return;
+
+
+	// I use a traditional for loop to iterate through the array and add the bonus to each score
+	for (int i = 0; i < size; ++i) {
+		scores[i] += bonus; // This is equivalent to *(scores + i) = *(scores + i) + bonus; Because of how arrays and pointers work I can use either notation
+	}
+
 }
 
 int main() {
@@ -61,6 +85,7 @@ int main() {
 	// Because scores is "technically" already a reference I don't need to use the "&" operator when passing it into functions that take pointer parameters.
 
 	// Function to print the original employee scores 
+	cout << "Original Employee Performance Scores: ";
 	printScores(scores, SIZE);
 
 	// Calling the calculateSum function to get the sum of all the scores 
@@ -68,6 +93,15 @@ int main() {
 
 	// Calling the calculateAverage function to get the average score
 	int averageScore = calculateAverage(totalScore, SIZE);
+
+	// Printing the total and average scores with formatting
+	cout << "\n\nTotal Employee Performance Score: " << totalScore;
+	cout << "\nAverage Employee Performance Score: " << std::fixed << std::setprecision(2) << averageScore << "\n";
+
+	// Calling the addBonus function to add the bonus to each employee score
+	addBonus(scores, SIZE, bonus);
+
+
 
 
 
